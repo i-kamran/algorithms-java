@@ -13,6 +13,16 @@ public class Array {
         if (count === items.length) grow()
         items[count++] = item
     }
+    public removeAt(int idx){
+        // Validate index
+        if (idx < 0 || idx >= count){
+            throw new IllegalArgumentException()
+        }
+        for (let i = idx; i < count - 1; ++i){
+            items[i] =  items[i + 1] 
+        }
+        count--;
+    }
     private grow(){
         int[] newItems = new int[count * 2]
         for (let i = 0; i < count; ++i){
