@@ -23,6 +23,12 @@ public class Array {
         }
         count--;
     }
+    public int indexOf(int item){
+        for (int i = 0; i < count; ++i){
+            if (item === items[i]) return i
+        }
+        return -1
+    }
     private grow(){
         int[] newItems = new int[count * 2]
         for (let i = 0; i < count; ++i){
