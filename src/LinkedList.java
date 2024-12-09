@@ -17,6 +17,12 @@ public class LinkedList {
 
   private Node head;
   private Node tail;
+  private int length;
+
+  public LinkedList() {
+    this.length = 0;
+    this.head = this.tail = null;
+  }
 
   public void addLast(int item) {
     var node = new Node(item);
@@ -26,6 +32,7 @@ public class LinkedList {
       this.tail.next = node;
       this.tail = node;
     }
+    this.length++;
   }
 
   public void addFirst(int item) {
@@ -36,17 +43,20 @@ public class LinkedList {
       node.next = this.head;
       this.head = node;
     }
+    this.length++;
   }
 
   public int removeFirst() {
     if (isEmpty()) throw new NoSuchElementException();
     var value = this.head.value;
-    var second = this.head.next;
-    this.head.next = null;
-    this.head = second;
-    if (this.isEmpty()) {
-      this.tail = null;
+    if (this.head == this.tail) {
+      this.head = this.tail = null;
+    } else {
+      var second = this.head.next;
+      this.head.next = null;
+      this.head = second;
     }
+    this.length--;
     return value;
   }
 
@@ -55,21 +65,47 @@ public class LinkedList {
       throw new NoSuchElementException();
     }
     var value = this.tail.value;
-    var prev = getPrevious(this.tail);
-    this.tail = prev;
-    this.tail.next = null;
+    if (this.head == this.tail) {
+      this.head = this.tail = null;
+    } else {
+      var prev = getPrevious(this.tail);
+      this.tail = prev;
+      this.tail.next = null;
+    }
+    this.length--;
     return value;
   }
 
-  private Node getPrevious(Node node) {
+  public int getSize() {
+    return this.length;
+  }
+
+  public int[] toArray() {
+    int[] arr = new int[this.length];
     var curr = this.head;
-    while (curr != null) {
-      if (curr.next == node) {
-        return curr;
-      }
-      curr = curr.next;
+    for (var i = 0; i < this.length; i++, curr = curr.next) {
+      arr[i] = curr.value;
     }
-    return null;
+    return arr;
+  }
+
+  public void reverse() {
+    if (this.isEmpty()) {
+      throw new NoSuchElementException();
+    }
+    if (this.head == this.tail) {
+      return;
+    }
+    var curr = this.head;
+    Node prev = null;
+    while (curr != null) {
+      var next = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = next;
+    }
+    this.tail = this.head;
+    this.head = prev;
   }
 
   public int indexOf(int item) {
@@ -85,6 +121,29 @@ public class LinkedList {
 
   public boolean contains(int item) {
     return indexOf(item) != -1;
+  }
+
+  public void print() {
+    if (this.head == null) {
+      System.out.println("Empty List");
+      return;
+    }
+    var curr = this.head;
+    while (curr != null) {
+      System.out.println(curr.value);
+      curr = curr.next;
+    }
+  }
+
+  private Node getPrevious(Node node) {
+    var curr = this.head;
+    while (curr != null) {
+      if (curr.next == node) {
+        return curr;
+      }
+      curr = curr.next;
+    }
+    return null;
   }
 
   private boolean isEmpty() {
