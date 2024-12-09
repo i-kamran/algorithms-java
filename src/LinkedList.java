@@ -135,6 +135,17 @@ public class LinkedList {
     }
   }
 
+  public int getKthFromTheEnd(int k) {
+    if (k > this.length) {
+      throw new IllegalArgumentException();
+    }
+    var curr = this.head;
+    for (int i = 0; i < this.length - k; ++i) {
+      curr = curr.next;
+    }
+    return curr.value;
+  }
+
   private Node getPrevious(Node node) {
     var curr = this.head;
     while (curr != null) {
