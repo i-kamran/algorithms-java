@@ -18,10 +18,37 @@ public class LinkedList {
 
   public void addLast(int item) {
     var node = new Node(item);
-    if (this.head == null) {
+    if (this.isEmpty()) {
       this.head = this.tail = node;
     } else {
       this.tail.next = node;
+      this.tail = node;
     }
+  }
+
+  public void addFirst(int item) {
+    var node = new Node(item);
+    if (this.isEmpty()) {
+      this.head = this.tail = node;
+    } else {
+      node.next = this.head;
+      this.head = node;
+    }
+  }
+
+  public int indexOf(int item) {
+    var curr = this.head;
+    for (var i = 0; curr != null; ++i) {
+      if (curr.value == item) {
+        return i;
+      }
+
+      curr = curr.next;
+    }
+    return -1;
+  }
+
+  private boolean isEmpty() {
+    return this.head == null;
   }
 }
