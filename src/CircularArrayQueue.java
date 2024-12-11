@@ -1,11 +1,11 @@
 import java.util.Arrays;
 
 public class CircularArrayQueue {
-  int[] arr;
-  int capacity;
-  int length;
-  int tail;
-  int head;
+  private int[] arr;
+  private int capacity;
+  private int length;
+  private int tail;
+  private int head;
 
   public CircularArrayQueue() {
     this(5);
@@ -17,7 +17,7 @@ public class CircularArrayQueue {
     this.head = this.tail = this.length = 0;
   }
 
-  public void enqueu(int item) {
+  public void enqueue(int item) {
     growIfRequired();
 
     this.arr[this.tail] = item;
