@@ -48,7 +48,8 @@ public class ArrayStack {
 
   @Override
   public String toString() {
-    return Arrays.toString(this.items);
+    var content = Arrays.copyOfRange(this.items, 0, this.length);
+    return Arrays.toString(content);
   }
 
   private void growArray() {
