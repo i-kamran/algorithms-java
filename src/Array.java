@@ -6,15 +6,12 @@ public class Array {
   private int[] items;
   public int count;
 
-  public Array(int capacity) {
-    items = new int[capacity];
+  public Array() {
+    this(5);
   }
 
-  /** Prints values in the array. */
-  public void print() {
-    for (int i = 0; i < count; i++) {
-      System.out.println(items[i]);
-    }
+  public Array(int capacity) {
+    items = new int[capacity];
   }
 
   /**
@@ -23,10 +20,22 @@ public class Array {
    * @param item the element to insert
    */
   public void insert(int item) {
-    if (count == items.length) {
-      grow();
-    }
+    growIfRequired();
     items[count++] = item;
+  }
+
+  /**
+   * Inserts an element at the index. If the array is full, it doubles its size.
+   *
+   * @param item the element to insert
+   */
+  public void insertAt(int item, int idx) {
+    if (validIndex(idx)) this.growIfRequired();
+    for (int i = count - 1; i >= idx; --i) {
+      this.items[i + 1] = this.items[i];
+    }
+    this.items[idx] = item;
+    this.count++;
   }
 
   /**
@@ -37,7 +46,7 @@ public class Array {
    */
   public void removeAt(int idx) {
     // Validate index
-    if (idx < 0 || idx >= count) {
+    if (validIndex(idx)) {
       throw new IllegalArgumentException();
     }
     for (int i = idx; i < count - 1; ++i) {
@@ -61,11 +70,47 @@ public class Array {
     return -1;
   }
 
-  private void grow() {
-    int[] newItems = new int[count * 2];
-    for (int i = 0; i < count; ++i) {
-      newItems[i] = items[i];
+  /** Return the largest number in the array. */
+  public int max() {
+    if (this.count == 0) {
+      throw new IllegalStateException("Array is empty. Cannot return max.");
     }
-    items = newItems;
+    int max = this.items[0];
+    for (int i = 0; i < this.count; ++i) {
+      if (this.items[i] > max) {
+        max = this.items[i];
+      }
+    }
+    return max;
+  }
+
+  /** Reverse the array. */
+  public void reverse() {
+    int[] newArr = new int[this.count];
+    for (int i = 0; i < count; i++) {
+      newArr[i] = this.items[count - 1 - i];
+    }
+    this.items = newArr;
+  }
+
+  /** Prints values in the array. */
+  public void print() {
+    for (int i = 0; i < count; i++) {
+      System.out.println(items[i]);
+    }
+  }
+
+  private boolean validIndex(int idx) {
+    return idx >= 0 || idx < this.count;
+  }
+
+  private void growIfRequired() {
+    if (this.count == this.items.length) {
+      int[] newItems = new int[count * 2];
+      for (int i = 0; i < count; ++i) {
+        newItems[i] = items[i];
+      }
+      items = newItems;
+    }
   }
 }
