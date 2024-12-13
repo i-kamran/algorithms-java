@@ -136,7 +136,7 @@ public class LinkedList {
   }
 
   public int getKthFromTheEnd(int k) {
-    if (k > this.length) {
+    if (k < 0 || k > this.length) {
       throw new IllegalArgumentException();
     }
     var curr = this.head;
