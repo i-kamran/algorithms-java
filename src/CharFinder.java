@@ -18,13 +18,15 @@ public class CharFinder {
     }
     return Character.MIN_VALUE;
   }
-  public char findFirstRepeatingChar(String str){
+
+  public char findFirstRepeatingChar(String str) {
     Set<Character> set = new HashSet<>();
-    for (var ch: str.toCharArray()){
-      if (set.contains(ch)){
+    for (var ch : str.toCharArray()) {
+      if (set.contains(ch)) {
         return ch;
       }
       set.add(ch);
     }
+    return Character.MIN_VALUE;
   }
 }
