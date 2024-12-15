@@ -53,7 +53,10 @@ public class Tree {
   }
 
   public void traversePreOrder() {
-    traversePreOrderWalk(this.root);
+    this.traversePreOrderWalk(this.root);
+  }
+  public void traverseInOrder() {
+    this.traverseInOrderWalk(this.root);
   }
 
   private void traversePreOrderWalk(TreeNode curr) {
@@ -61,7 +64,16 @@ public class Tree {
       return;
     }
     System.out.println(curr.value);
-    traversePreOrderWalk(curr.leftChild);
-    traversePreOrderWalk(curr.rightChild);
+    this.traversePreOrderWalk(curr.leftChild);
+    this.traversePreOrderWalk(curr.rightChild);
+  }
+
+  private void traverseInOrderWalk(TreeNode curr) {
+    if (curr == null) {
+      return;
+    }
+    this.traverseInOrderWalk(curr.leftChild);
+    System.out.println(curr.value);
+    this.traverseInOrderWalk(curr.leftChild);
   }
 }
