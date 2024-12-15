@@ -51,4 +51,17 @@ public class Tree {
     }
     return false;
   }
+
+  public void traversePreOrder() {
+    traversePreOrderWalk(this.root);
+  }
+
+  private void traversePreOrderWalk(TreeNode curr) {
+    if (curr == null) {
+      return;
+    }
+    System.out.println(curr.value);
+    traversePreOrderWalk(curr.leftChild);
+    traversePreOrderWalk(curr.rightChild);
+  }
 }
