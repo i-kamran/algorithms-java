@@ -55,8 +55,20 @@ public class Tree {
   public void traversePreOrder() {
     this.traversePreOrderWalk(this.root);
   }
+
   public void traverseInOrder() {
     this.traverseInOrderWalk(this.root);
+  }
+  public void traversePostOrder(){
+    this.traversePostOrderWalk(this.root);
+  }
+  private void traversePostOrderWalk(TreeNode curr){
+    if (curr == null){
+      return;
+    }
+    this.traversePostOrderWalk(curr.leftChild);
+    this.traversePostOrderWalk(curr.rightChild);
+    System.out.println(curr.value);
   }
 
   private void traversePreOrderWalk(TreeNode curr) {
