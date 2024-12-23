@@ -6,7 +6,7 @@ public class Expressions {
   private List<Character> closing = Arrays.asList(')', ']', '}', '>');
 
   public boolean isBalanced(String input) {
-    LinkedListStack<Character> stack = new LinkedListStack<>();
+    StackLinkedList<Character> stack = new StackLinkedList<>();
     for (char ch : input.toCharArray()) {
       if (isOpening(ch)) {
         stack.push(ch);

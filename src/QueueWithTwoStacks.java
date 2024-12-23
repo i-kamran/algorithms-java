@@ -1,6 +1,6 @@
 public class QueueWithTwoStacks<T> {
-  LinkedListStack<T> enqueueStack = new LinkedListStack<>();
-  LinkedListStack<T> dequeueStack = new LinkedListStack<>();
+StackLinkedList<T> enqueueStack = new StackLinkedList<>();
+  StackLinkedList<T> dequeueStack = new StackLinkedList<>();
 
   public void enqueue(T item) {
     this.enqueueStack.push(item);

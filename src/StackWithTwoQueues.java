@@ -1,6 +1,6 @@
 public class StackWithTwoQueues<T> {
-  private LinkedListQueue<T> pushQueue = new LinkedListQueue<>();
-  private LinkedListQueue<T> popQueue = new LinkedListQueue<>();
+  private QueueLinkedList<T> pushQueue = new QueueLinkedList<>();
+  private QueueLinkedList<T> popQueue = new QueueLinkedList<>();
   private int length;
 
   public void push(T item) {
