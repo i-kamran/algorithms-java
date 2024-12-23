@@ -1,15 +1,15 @@
 import java.util.Arrays;
 
-public class ArrayPriorityQueue {
+public class QueuePriorityArray {
   private int[] items;
   private int length;
   private int capacity;
 
-  public ArrayPriorityQueue() {
+  public QueuePriorityArray() {
     this(5);
   }
 
-  public ArrayPriorityQueue(int capacity) {
+  public QueuePriorityArray(int capacity) {
     this.capacity = capacity;
     this.items = new int[capacity];
     this.length = 0;

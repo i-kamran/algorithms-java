@@ -1,16 +1,16 @@
 import java.util.Arrays;
 
-public class ArrayQueue {
+public class QueueArray {
   private int length;
   private int capacity;
   private int[] items;
   private int head;
 
-  public ArrayQueue() {
+  public QueueArray() {
     this(5);
   }
 
-  public ArrayQueue(int capacity) {
+  public QueueArray(int capacity) {
     this.capacity = capacity;
     this.items = new int[capacity];
     this.length = 0;

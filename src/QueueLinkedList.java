@@ -1,4 +1,4 @@
-public class LinkedListQueue<T> {
+public class QueueLinkedList<T> {
 
   private class QueueNode<E> {
     private E value;
@@ -14,7 +14,7 @@ public class LinkedListQueue<T> {
   private QueueNode<T> tail;
   private int length;
 
-  public LinkedListQueue() {
+  public QueueLinkedList() {
     this.length = 0;
     this.head = null;
   }

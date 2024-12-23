@@ -1,17 +1,17 @@
 import java.util.Arrays;
 
-public class CircularArrayQueue {
+public class QueueCircularArray {
   private int[] arr;
   private int capacity;
   private int length;
   private int tail;
   private int head;
 
-  public CircularArrayQueue() {
+  public QueueCircularArray() {
     this(5);
   }
 
-  public CircularArrayQueue(int capacity) {
+  public QueueCircularArray(int capacity) {
     this.capacity = capacity;
     this.arr = new int[capacity];
     this.head = this.tail = this.length = 0;

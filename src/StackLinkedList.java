@@ -1,4 +1,4 @@
-public class LinkedListStack<T> {
+public class StackLinkedList<T> {
   private class StackNode<N> {
     private N value;
     private StackNode<N> prev;

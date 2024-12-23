@@ -3,16 +3,16 @@ import java.util.Arrays;
 /** 
  * Stack class implemented using and array.
  * */
-public class ArrayStack {
+public class StackArray {
   private int[] items;
   private int capacity;
   private int length;
 
-  public ArrayStack() {
+  public StackArray() {
     this(5);
   }
 
-  public ArrayStack(int capacity) {
+  public StackArray(int capacity) {
     if (capacity <= 0) {
       throw new IllegalArgumentException("Capacity must be greater than 0");
     }
