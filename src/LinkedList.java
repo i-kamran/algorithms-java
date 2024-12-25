@@ -89,6 +89,25 @@ public class LinkedList {
     return arr;
   }
 
+  public boolean hasLoop() {
+    if (this.isEmpty()) {
+      return false;
+    }
+    var slow = this.head;
+    var fast = this.head;
+    while (slow != null && fast.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+      if (slow == fast) {
+        return true;
+      }
+    }
+    return false;
+  }
+  public void addLoop(){
+    this.tail.next = this.head;
+  }
+
   public void reverse() {
     if (this.isEmpty()) {
       throw new NoSuchElementException();
