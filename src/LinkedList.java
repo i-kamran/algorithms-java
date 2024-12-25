@@ -107,6 +107,22 @@ public class LinkedList {
   public void addLoop(){
     this.tail.next = this.head;
   }
+  
+  public void printMiddle(){
+    var slow = this.head;
+    var fast = this.head;
+    while(fast != this.tail && fast.next != this.tail){
+        fast = fast.next.next;
+        slow = slow.next;
+
+    }
+    if (fast == this.tail){
+      System.out.println(slow.value);
+    }
+    else {
+      System.out.println(slow.value + ", " + slow.next.value);
+    }
+  }
 
   public void reverse() {
     if (this.isEmpty()) {
