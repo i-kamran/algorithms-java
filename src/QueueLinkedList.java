@@ -12,7 +12,7 @@ public class QueueLinkedList<T> {
 
   private QueueNode<T> head;
   private QueueNode<T> tail;
-  private int length;
+  public int length;
 
   public QueueLinkedList() {
     this.length = 0;

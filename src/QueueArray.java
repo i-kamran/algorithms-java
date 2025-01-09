@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class QueueArray {
-  private int length;
+  public int length;
   private int capacity;
   private int[] items;
   private int head;
