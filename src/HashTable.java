@@ -21,6 +21,14 @@ public class HashTable {
     table = new LinkedList[capacity];
   }
 
+  public void remove(int key) {
+    var entry = getEntry(key);
+    if (entry == null){
+      throw new IllegalStateException("No such entry.");
+    }
+  getBucket(key).remove(entry);
+  }
+
   public void put(int key, String value) {
     var entry = getEntry(key);
     if (entry != null) {
@@ -30,18 +38,19 @@ public class HashTable {
     getOrCreateBucket(key).add(new HashEntry(key, value));
   }
 
-  public String get(int key){
+  public String get(int key) {
     var index = hash(key);
     var bucket = table[index];
-    if (bucket != null){
-      for (var entry: bucket){
-        if (entry.key == key){
+    if (bucket != null) {
+      for (var entry : bucket) {
+        if (entry.key == key) {
           return entry.value;
         }
       }
     }
     return null;
   }
+
   private LinkedList<HashEntry> getOrCreateBucket(int key) {
     var bucket = getBucket(key);
     if (bucket == null) {
