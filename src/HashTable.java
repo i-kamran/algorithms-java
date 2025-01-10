@@ -23,10 +23,10 @@ public class HashTable {
 
   public void remove(int key) {
     var entry = getEntry(key);
-    if (entry == null){
+    if (entry == null) {
       throw new IllegalStateException("No such entry.");
     }
-  getBucket(key).remove(entry);
+    getBucket(key).remove(entry);
   }
 
   public void put(int key, String value) {
