@@ -35,6 +35,22 @@ public class Tree {
     }
   }
 
+  public int getMin() {
+    return min(root);
+  }
+
+  private boolean isLeaf(TreeNode node) {
+    return node.leftChild == null && node.rightChild == null;
+  }
+
+  private int min(TreeNode node) {
+    if (isLeaf(node)) {
+      return node.value;
+    }
+    var child = Math.min(min(node.leftChild), min(node.rightChild));
+    return Math.min(node.value, child);
+  }
+
   public boolean find(int value) {
     if (this.root == null) {
       throw new IllegalStateException("Cannot search an empty tree.");
@@ -90,7 +106,7 @@ public class Tree {
   }
 
   private int height(TreeNode node) {
-    if (node.leftChild == null && node.rightChild == null) {
+    if (isLeaf(node)) {
       return 0;
     }
     return 1 + Math.max(height(node.leftChild), height(node.rightChild));
