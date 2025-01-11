@@ -83,6 +83,9 @@ public class Tree {
   }
 
   public int getHeight() {
+    if (root == null) {
+      return -1;
+    }
     return height(root);
   }
 
