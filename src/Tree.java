@@ -59,11 +59,13 @@ public class Tree {
   public void traverseInOrder() {
     this.traverseInOrderWalk(this.root);
   }
-  public void traversePostOrder(){
+
+  public void traversePostOrder() {
     this.traversePostOrderWalk(this.root);
   }
-  private void traversePostOrderWalk(TreeNode curr){
-    if (curr == null){
+
+  private void traversePostOrderWalk(TreeNode curr) {
+    if (curr == null) {
       return;
     }
     this.traversePostOrderWalk(curr.leftChild);
@@ -78,6 +80,17 @@ public class Tree {
     System.out.println(curr.value);
     this.traversePreOrderWalk(curr.leftChild);
     this.traversePreOrderWalk(curr.rightChild);
+  }
+
+  public int getHeight() {
+    return height(root);
+  }
+
+  private int height(TreeNode node) {
+    if (node.leftChild == null && node.rightChild == null) {
+      return 0;
+    }
+    return 1 + Math.max(height(node.leftChild), height(node.rightChild));
   }
 
   private void traverseInOrderWalk(TreeNode curr) {
