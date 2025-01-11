@@ -35,12 +35,22 @@ public class Tree {
     }
   }
 
-  public int getMin() {
-    return min(root);
+  public int getMinValueInSearchTree() {
+    if (root == null) {
+      throw new IllegalStateException("Tree is empty.");
+    }
+    var curr = root;
+    while (curr.leftChild != null) {
+      curr = curr.leftChild;
+    }
+    return curr.value;
   }
 
-  private boolean isLeaf(TreeNode node) {
-    return node.leftChild == null && node.rightChild == null;
+  public int getMin() {
+    if (root == null) {
+      throw new IllegalStateException("Tree is empty.");
+    }
+    return min(root);
   }
 
   private int min(TreeNode node) {
@@ -98,6 +108,15 @@ public class Tree {
     this.traversePreOrderWalk(curr.rightChild);
   }
 
+  private void traverseInOrderWalk(TreeNode curr) {
+    if (curr == null) {
+      return;
+    }
+    this.traverseInOrderWalk(curr.leftChild);
+    System.out.println(curr.value);
+    this.traverseInOrderWalk(curr.leftChild);
+  }
+
   public int getHeight() {
     if (root == null) {
       return -1;
@@ -112,12 +131,7 @@ public class Tree {
     return 1 + Math.max(height(node.leftChild), height(node.rightChild));
   }
 
-  private void traverseInOrderWalk(TreeNode curr) {
-    if (curr == null) {
-      return;
-    }
-    this.traverseInOrderWalk(curr.leftChild);
-    System.out.println(curr.value);
-    this.traverseInOrderWalk(curr.leftChild);
+  private boolean isLeaf(TreeNode node) {
+    return node.leftChild == null && node.rightChild == null;
   }
 }
