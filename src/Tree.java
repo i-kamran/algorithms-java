@@ -131,6 +131,22 @@ public class Tree {
     return countLeavesWalk(node.leftChild) + countLeavesWalk(node.rightChild);
   }
 
+  public int getMax() {
+
+    if (root == null) {
+      throw new IllegalStateException("Tree is empty.");
+    }
+
+    return getMaxWalk(root);
+  }
+
+  private int getMaxWalk(TreeNode node) {
+    if (isLeaf(node)) {
+      return node.value;
+    }
+    return Math.max(node.value, Math.max(getMaxWalk(node.leftChild), getMaxWalk(node.rightChild)));
+  }
+
   public int getHeight() {
     if (root == null) {
       return -1;
