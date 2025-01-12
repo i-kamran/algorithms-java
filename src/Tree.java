@@ -117,6 +117,20 @@ public class Tree {
     this.traverseInOrderWalk(curr.leftChild);
   }
 
+  public int countLeaves() {
+    return countLeavesWalk(root);
+  }
+
+  private int countLeavesWalk(TreeNode node) {
+    if (node == null) {
+      return 0;
+    }
+    if (isLeaf(node)) {
+      return 1;
+    }
+    return countLeavesWalk(node.leftChild) + countLeavesWalk(node.rightChild);
+  }
+
   public int getHeight() {
     if (root == null) {
       return -1;
