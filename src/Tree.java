@@ -146,6 +146,12 @@ public class Tree {
     }
     return Math.max(node.value, Math.max(getMaxWalk(node.leftChild), getMaxWalk(node.rightChild)));
   }
+  public int size(){
+    if (root == null){
+      throw new IllegalStateException("Tree is empty.");
+    }
+    return getSize(root);
+  }
 
   private int getSize(TreeNode node) {
     if (node == null) {
