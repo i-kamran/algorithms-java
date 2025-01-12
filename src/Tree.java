@@ -147,6 +147,16 @@ public class Tree {
     return Math.max(node.value, Math.max(getMaxWalk(node.leftChild), getMaxWalk(node.rightChild)));
   }
 
+  private int getSize(TreeNode node) {
+    if (node == null) {
+      return 0;
+    }
+    if (isLeaf(node)) {
+      return 1;
+    }
+    return 1 + getSize(node.leftChild) + getSize(node.rightChild);
+  }
+
   public int getHeight() {
     if (root == null) {
       return -1;
