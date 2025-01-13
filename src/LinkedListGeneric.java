@@ -44,6 +44,37 @@ public class LinkedListGeneric<T> implements Iterable<T> {
     return node.value;
   }
 
+  public T removeNode(T node) {
+    if (head == null) {
+      throw new IllegalStateException("Cannot remove from an empty list.");
+    }
+    var curr = head;
+    var prev = (GenericNode<T>) null; // Previous node starts as null.
+
+    while (curr != null) {
+      if (curr.value.equals(node)) {
+        length--;
+
+        if (curr == head) { // Case removing head
+          head = head.next;
+          if (head == null) { // If the list is empty, update tail.
+            tail = null;
+          }
+        } else if (curr == tail) { // Case removing tail
+          prev = tail;
+          tail.next = null;
+        } else { // Case removing middle node
+          prev.next = curr.next;
+        }
+        return curr.value;
+      }
+
+      prev = curr;
+      curr = curr.next;
+    }
+
+    return null; // Return null if the node is not found.
+  }
 
   public void print() {
     var curr = head;
