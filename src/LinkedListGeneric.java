@@ -1,4 +1,6 @@
-public class LinkedListGeneric<T> {
+import java.util.Iterator;
+
+public class LinkedListGeneric<T> implements Iterable<T> {
   private class GenericNode<E> {
     E value;
     GenericNode<E> next;
@@ -42,6 +44,7 @@ public class LinkedListGeneric<T> {
     return node.value;
   }
 
+
   public void print() {
     var curr = head;
     while (curr != null) {
@@ -52,5 +55,31 @@ public class LinkedListGeneric<T> {
 
   private boolean isEmpty() {
     return head == null;
+  }
+
+  // Implementing Iterable<T>
+  @Override
+  public Iterator<T> iterator() {
+    return new LinkedListIterator();
+  }
+
+  // Inner class to implement Iterator<T>
+  private class LinkedListIterator implements Iterator<T> {
+    private GenericNode<T> current = head;
+
+    @Override
+    public boolean hasNext() {
+      return current != null;
+    }
+
+    @Override
+    public T next() {
+      if (!hasNext()) {
+        throw new java.util.NoSuchElementException();
+      }
+      T value = current.value;
+      current = current.next;
+      return value;
+    }
   }
 }
