@@ -1,6 +1,5 @@
-import java.util.LinkedList;
-
 public class HashTable {
+
   private class HashEntry {
     private int key;
     private String value;
@@ -11,71 +10,72 @@ public class HashTable {
     }
   }
 
-  private LinkedList<HashEntry>[] table;
+  private LinkedListGeneric<HashEntry>[] table;
+  int capacity;
 
   public HashTable() {
-    this(100);
+    this(5);
   }
 
   public HashTable(int capacity) {
-    table = new LinkedList[capacity];
+    this.capacity = capacity;
+    table = new LinkedListGeneric[capacity];
+  }
+
+  public void put(int key, String value) {
+    var entry = getEntry(key);
+    if (entry == null) {
+      getOrCreateBucket(key).add(new HashEntry(key, value));
+      return;
+    }
+    entry.value = value;
   }
 
   public void remove(int key) {
     var entry = getEntry(key);
     if (entry == null) {
-      throw new IllegalStateException("No such entry.");
-    }
-    getBucket(key).remove(entry);
-  }
-
-  public void put(int key, String value) {
-    var entry = getEntry(key);
-    if (entry != null) {
-      entry.value = value;
       return;
     }
-    getOrCreateBucket(key).add(new HashEntry(key, value));
+    getBucket(key).removeNode(entry);
   }
 
   public String get(int key) {
-    var index = hash(key);
-    var bucket = table[index];
-    if (bucket != null) {
-      for (var entry : bucket) {
-        if (entry.key == key) {
-          return entry.value;
-        }
-      }
-    }
-    return null;
+    var entry = getEntry(key);
+    return (entry == null) ? null : entry.value;
   }
 
-  private LinkedList<HashEntry> getOrCreateBucket(int key) {
-    var bucket = getBucket(key);
+   public int getHash(int key){
+    return hash(key);
+  }
+
+  private LinkedListGeneric<HashEntry> getOrCreateBucket(int key) {
+    var idx = hash(key);
+    var bucket = table[idx];
     if (bucket == null) {
-      table[hash(key)] = new LinkedList<>();
+      bucket = new LinkedListGeneric<HashEntry>();
+      table[idx] = bucket;
     }
     return bucket;
   }
 
-  public HashEntry getEntry(int key) {
+  private HashEntry getEntry(int key) {
     var bucket = getBucket(key);
     if (bucket != null) {
-      for (var entry : bucket) {
-        if (entry.key == key) {
-          return entry;
+      for (var item : bucket) {
+        if (item.key == key) {
+          return item;
         }
       }
     }
     return null;
   }
 
-  private LinkedList<HashEntry> getBucket(int key) {
+
+  private LinkedListGeneric<HashEntry> getBucket(int key) {
     return table[hash(key)];
   }
 
   private int hash(int key) {
-    return key % table.length;
+    return (key * 31 % capacity + capacity) % capacity;
   }
 }
