@@ -47,10 +47,10 @@ public class HashTableExercises {
       if (map.containsKey(item + k)) {
         counter += map.get(item + k);
       }
-      if (map.containsKey(item - k)){
-        counter += map.get(item -k);
+      if (map.containsKey(item - k)) {
+        counter += map.get(item - k);
       }
-      map.put(item, map.getOrDefault(item, 0) + 1); 
+      map.put(item, map.getOrDefault(item, 0) + 1);
     }
     return counter;
   }
