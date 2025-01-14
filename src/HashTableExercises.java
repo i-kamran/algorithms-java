@@ -1,9 +1,8 @@
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
-
-import javax.print.attribute.standard.OutputBin;
 
 public class HashTableExercises {
   public static int mostFrequent(int[] items) {
@@ -40,12 +39,32 @@ public class HashTableExercises {
     return new int[] {-1};
   }
 
+  public static int countPairsWithDiff(int[] nums, int k) {
+    Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+    int counter = 0;
+
+    for (int item : nums) {
+      if (map.containsKey(item + k)) {
+        counter += map.get(item + k);
+      }
+      if (map.containsKey(item - k)){
+        counter += map.get(item -k);
+      }
+      map.put(item, map.getOrDefault(item, 0) + 1); 
+    }
+    return counter;
+  }
+
   public static void main(String[] args) {
     int[] items = {1, 2, 2, 3, 3, 5, 5, 5};
     int result = mostFrequent(items);
     System.out.println("Most frequent item: " + result); // Output: Most frequent count: 3
     int[] twoSumArr = {1, 2, 7, 11, 15};
     int[] twoSumResult = twoSum(twoSumArr, 9);
-    System.out.println("Two sum answer:  " + Arrays.toString(twoSumResult) );
+    System.out.println("Two sum answer:  " + Arrays.toString(twoSumResult));
+    int[] pairsArr = {1, 7, 5, 9, 2, 12, 3};
+    int pairsDiff = 2;
+    int pairsResult = countPairsWithDiff(pairsArr, pairsDiff);
+    System.out.println("Pairs with difference " + pairsDiff + ": " + pairsResult);
   }
 }
