@@ -7,6 +7,11 @@ public class HashTableGeneric<K, V> {
       this.key = key;
       this.value = value;
     }
+
+    @Override
+    public String toString() {
+      return "key: " + key + ", value: " + value;
+    }
   }
 
   LinkedListGeneric<HashEntryGeneric<K, V>>[] table;
