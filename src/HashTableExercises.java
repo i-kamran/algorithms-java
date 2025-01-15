@@ -10,7 +10,7 @@ public class HashTableExercises {
     if (items.length == 0) {
       throw new IllegalArgumentException("Array is empty.");
     }
-    var table = new HashMap<Integer, Integer>();
+    var table = new HashTableGeneric<Integer, Integer>();
     for (var item : items) {
       table.put(item, table.get(item) == null ? 1 : table.get(item) + 1);
     }
@@ -40,7 +40,8 @@ public class HashTableExercises {
   }
 
   public static int countPairsWithDiff(int[] nums, int k) {
-    Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+    
+    HashTableGeneric<Integer, Integer> map = new HashTableGeneric<Integer, Integer>();
     int counter = 0;
 
     for (int item : nums) {
