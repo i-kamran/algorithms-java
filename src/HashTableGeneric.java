@@ -24,36 +24,65 @@ public class HashTableGeneric<K, V> {
 
   public void put(K key, V value) {
     var entry = getEntry(key);
-    if (entry == null){
+    if (entry == null) {
       var bucket = getOrCreateBucket(key);
       bucket.add(new HashEntryGeneric<>(key, value));
       return;
     }
     entry.value = value;
+  }
 
-    
+  public V get(K key) {
+    var entry = getEntry(key);
+    return (entry == null) ? null : entry.value;
+  }
+
+  public V remove(K key) {
+    var entry = getEntry(key);
+    if (entry == null) {
+      return null;
+    }
+    getBucket(key).removeNode(entry);
+    return entry.value;
+  }
+
+  public boolean containsKey(K key) {
+    return getEntry(key) != null;
+  }
+
+  public V getOrDefault(K key, V defValue) {
+    var entry = getEntry(key);
+    if (entry == null) {
+      return defValue;
+    }
+    return entry.value;
+  }
+
+  public int getHash(K key) {
+    return hash(key);
   }
 
   private HashEntryGeneric<K, V> getEntry(K key) {
     int idx = hash(key);
     LinkedListGeneric<HashEntryGeneric<K, V>> bucket = table[idx];
-    for (var item : bucket) {
-      if (key == item.value) {
-        return item;
+    if (bucket != null) {
+      for (var item : bucket) {
+        if (key == item.key) {
+          return item;
+        }
       }
     }
     return null;
   }
 
-  private LinkedListGeneric<HashEntryGeneric<K, V>> getOrCreateBucket(K key){
+  private LinkedListGeneric<HashEntryGeneric<K, V>> getOrCreateBucket(K key) {
     var idx = hash(key);
     var bucket = table[idx];
-    if (bucket == null){
+    if (bucket == null) {
       bucket = new LinkedListGeneric<HashEntryGeneric<K, V>>();
       table[idx] = bucket;
     }
     return bucket;
-
   }
 
   private LinkedListGeneric<HashEntryGeneric<K, V>> getBucket(K key) {
