@@ -78,6 +78,20 @@ public class Tree {
     return false;
   }
 
+  public boolean contains(int value) {
+    return containsWalk(value, root);
+  }
+
+  private boolean containsWalk(int value, TreeNode node) {
+    if (node == null) {
+      return false;
+    }
+    if (node.value == value) {
+      return true;
+    }
+    return containsWalk(value, node.leftChild) || containsWalk(value, node.rightChild);
+  }
+
   public void traversePreOrder() {
     this.traversePreOrderWalk(this.root);
   }
@@ -146,8 +160,9 @@ public class Tree {
     }
     return Math.max(node.value, Math.max(getMaxWalk(node.leftChild), getMaxWalk(node.rightChild)));
   }
-  public int size(){
-    if (root == null){
+
+  public int size() {
+    if (root == null) {
       throw new IllegalStateException("Tree is empty.");
     }
     return getSize(root);
