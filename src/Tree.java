@@ -178,6 +178,23 @@ public class Tree {
     return 1 + getSize(node.leftChild) + getSize(node.rightChild);
   }
 
+  public boolean areSibling(int first, int second) {
+    return areSiblingWalk(root, first, second);
+  }
+
+  private boolean areSiblingWalk(TreeNode node, int first, int second) {
+    if (node == null) {
+      return false;
+    }
+    var siblings = false;
+    if (node.leftChild != null && node.rightChild != null) {
+      siblings = (node.leftChild.value == first && node.rightChild.value == second)
+              || (node.leftChild.value == second && node.rightChild.value == first);
+    }
+    return siblings || areSiblingWalk(node.leftChild, first, second)
+        || areSiblingWalk(node.rightChild, first, second);
+  }
+
   public int getHeight() {
     if (root == null) {
       return -1;
