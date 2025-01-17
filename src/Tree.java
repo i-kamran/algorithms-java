@@ -194,6 +194,27 @@ public class Tree {
     return siblings || areSiblingWalk(node.leftChild, first, second)
         || areSiblingWalk(node.rightChild, first, second);
   }
+  public LinkedListGeneric<Integer> getAncestors(int needle){
+
+    var ancestors = new LinkedListGeneric<Integer>();
+    getAncestorsWalk(needle, root, ancestors); 
+    return ancestors;
+  }
+  private boolean getAncestorsWalk(int needle, TreeNode node, LinkedListGeneric<Integer> ancestors){
+    if (node == null){
+      return false;
+    }
+    if (needle == node.value){
+      return true;
+    }
+    if (getAncestorsWalk(needle, node.leftChild, ancestors) || getAncestorsWalk(needle, node.rightChild , ancestors)){
+      ancestors.add(node.value);
+      return true;
+    }
+    return false;
+
+
+  }
 
   public int getHeight() {
     if (root == null) {
