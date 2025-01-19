@@ -23,8 +23,8 @@ public class HashTableGeneric<K, V> {
 
   @SuppressWarnings("unchecked")
   public HashTableGeneric(int capacity) {
-    table = new LinkedListGeneric[capacity];
     this.capacity = capacity;
+    this.table = new LinkedListGeneric[this.capacity];
   }
 
   public void put(K key, V value) {
