@@ -40,4 +40,19 @@ public class HashSet<T> {
   }
 
   private LinkedListGeneric<T> getOrCreateBucket(T value) {}
+
+  private int hash(T value) {
+    if (value == null) {
+      return 0;
+    }
+
+    int hashVal;
+    if (value instanceof Number) {
+      hashVal = ((Number) value).intValue();
+    } else {
+      hashVal = value.hashCode();
+    }
+
+    return Math.abs(hashVal % capacity);
+  }
 }
