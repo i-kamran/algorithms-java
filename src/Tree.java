@@ -188,32 +188,36 @@ public class Tree {
     }
     var siblings = false;
     if (node.leftChild != null && node.rightChild != null) {
-      siblings = (node.leftChild.value == first && node.rightChild.value == second)
+      siblings =
+          (node.leftChild.value == first && node.rightChild.value == second)
               || (node.leftChild.value == second && node.rightChild.value == first);
     }
-    return siblings || areSiblingWalk(node.leftChild, first, second)
+    return siblings
+        || areSiblingWalk(node.leftChild, first, second)
         || areSiblingWalk(node.rightChild, first, second);
   }
-  public LinkedListGeneric<Integer> getAncestors(int needle){
+
+  public LinkedListGeneric<Integer> getAncestors(int needle) {
 
     var ancestors = new LinkedListGeneric<Integer>();
-    getAncestorsWalk(needle, root, ancestors); 
+    getAncestorsWalk(needle, root, ancestors);
     return ancestors;
   }
-  private boolean getAncestorsWalk(int needle, TreeNode node, LinkedListGeneric<Integer> ancestors){
-    if (node == null){
+
+  private boolean getAncestorsWalk(
+      int needle, TreeNode node, LinkedListGeneric<Integer> ancestors) {
+    if (node == null) {
       return false;
     }
-    if (needle == node.value){
+    if (needle == node.value) {
       return true;
     }
-    if (getAncestorsWalk(needle, node.leftChild, ancestors) || getAncestorsWalk(needle, node.rightChild , ancestors)){
+    if (getAncestorsWalk(needle, node.leftChild, ancestors)
+        || getAncestorsWalk(needle, node.rightChild, ancestors)) {
       ancestors.add(node.value);
       return true;
     }
     return false;
-
-
   }
 
   public int getHeight() {
