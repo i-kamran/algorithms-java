@@ -2,6 +2,7 @@ public class HashSet<T> {
   private LinkedListGeneric<T>[] items;
 
   private int capacity;
+  private int length;
 
   public HashSet() {
     this(5);
@@ -13,13 +14,36 @@ public class HashSet<T> {
     this.items = new LinkedListGeneric[this.capacity];
   }
 
-  public void put(T value) {
+  public void add(T value) {
     var entry = getEntry(value);
     if (entry != null) {
       return;
     }
     var bucket = getOrCreateBucket(value);
     bucket.add(value);
+    length++;
+  }
+
+  public boolean remove(T value) {
+    var bucket = getBucket(value);
+
+    if (bucket.removeNode(value) == value) {
+      this.length--;
+      return true;
+    }
+    return false;
+  }
+
+  public int size() {
+    return length;
+  }
+
+  public boolean isEmpty() {
+    return length == 0;
+  }
+
+  public boolean contains(T value) {
+    return getEntry(value) != null;
   }
 
   private T getEntry(T value) {
