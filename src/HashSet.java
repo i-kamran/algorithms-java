@@ -39,7 +39,15 @@ public class HashSet<T> {
     return (items[hash(value)]);
   }
 
-  private LinkedListGeneric<T> getOrCreateBucket(T value) {}
+  private LinkedListGeneric<T> getOrCreateBucket(T value) {
+    var idx = hash(value);
+    var bucket = items[idx];
+    if (bucket == null) {
+      bucket = new LinkedListGeneric<T>();
+      items[idx] = bucket;
+    }
+    return bucket;
+  }
 
   private int hash(T value) {
     if (value == null) {
