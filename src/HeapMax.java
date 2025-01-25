@@ -15,8 +15,26 @@ public class HeapMax {
     if (length == capacity) {
       growArr();
     }
-    items[length++] = value;
-    heapifyUp();
+    items[length] = value;
+    heapifyUp(length);
+    length++;
+  }
+
+  public int remove() {
+    if (length == 0) {
+      throw new IllegalStateException("Cannot remove from an empty heap.");
+    }
+    int value = items[0];
+    items[0] = items[--length];
+    heapifyDown(0);
+    return value;
+  }
+
+  public int peek() {
+    if (length == 0) {
+      throw new IllegalStateException("Cannot peek an empty heap.");
+    }
+    return items[0];
   }
 
   private void growArr() {
@@ -40,7 +58,20 @@ public class HeapMax {
     heapifyUp(parentIdx);
   }
 
-  private void heapifyDown(int idx){
+  private void heapifyDown(int idx) {
+    var leftIdx = getLeftChildIdx(idx);
+    var rightIdx = getRightChildIdx(idx);
+    if (idx >= length || leftIdx >= length) {
+      return;
+    }
+
+    if (items[leftIdx] > items[idx] && items[leftIdx] > items[rightIdx]) {
+      swap(items, idx, leftIdx);
+      heapifyDown(leftIdx);
+    } else if (items[rightIdx] > items[idx] && items[rightIdx] > items[idx]) {
+      swap(items, idx, rightIdx);
+      heapifyDown(rightIdx);
+    }
   }
 
   private void swap(int[] arr, int idxA, int idxB) {
