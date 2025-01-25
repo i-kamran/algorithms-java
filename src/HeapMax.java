@@ -19,7 +19,14 @@ public class HeapMax {
     heapifyUp();
   }
 
-  private void growArr() {}
+  private void growArr() {
+    int[] newArr = new int[capacity * 2];
+    for (int i = 0; i < capacity; ++i) {
+      newArr[i] = items[i];
+    }
+    capacity *= 2;
+    items = newArr;
+  }
 
   private void heapifyUp() {}
 
