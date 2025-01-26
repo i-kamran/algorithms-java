@@ -5,6 +5,10 @@ public class HeapMax {
   private int length;
   private int capacity;
 
+  public HeapMax() {
+    this(2);
+  }
+
   public HeapMax(int capacity) {
     this.capacity = capacity;
     items = new int[this.capacity];
@@ -65,10 +69,10 @@ public class HeapMax {
       return;
     }
 
-    if (items[leftIdx] > items[idx] && items[leftIdx] > items[rightIdx]) {
+    if (items[idx] < items[leftIdx] && items[leftIdx] > items[rightIdx]) {
       swap(items, idx, leftIdx);
       heapifyDown(leftIdx);
-    } else if (items[rightIdx] > items[idx] && items[rightIdx] > items[idx]) {
+    } else if (items[idx] < items[rightIdx] && items[rightIdx] > items[idx]) {
       swap(items, idx, rightIdx);
       heapifyDown(rightIdx);
     }
