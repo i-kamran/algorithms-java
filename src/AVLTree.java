@@ -25,12 +25,19 @@ public class AVLTree {
     if (node == null) {
       return new AVLNode(value);
     }
-    
+
+    if (value < node.value) {
+      insert(node.leftChild, value);
+    } else {
+      insert(node.rightChild, value);
+    }
+    setHeight(node);
+    return node;
   }
 
-  private int getHeight(AVLNode node){
-    return node.height;
 
+  private int getHeight(AVLNode node) {
+    return node == null ? 0 : node.height;
   }
 
   private boolean isBalanced(AVLNode node) {}
