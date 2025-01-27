@@ -35,6 +35,9 @@ public class AVLTree {
     return node;
   }
 
+  private void setHeight(AVLNode node) {
+    node.height = Math.max(getHeight(node.leftChild), getHeight(node.rightChild)) + 1;
+  }
 
   private int getHeight(AVLNode node) {
     return node == null ? 0 : node.height;
