@@ -40,15 +40,55 @@ public class AVLTree {
   }
 
   private int getHeight(AVLNode node) {
-    return node == null ? 0 : node.height;
+    return node == null ? -1 : node.height;
   }
 
-  private boolean isBalanced(AVLNode node) {}
+  private AVLNode balance(AVLNode node) {
+    if (isLeftHeavy(node)) {
+      if (getBalanceFactor(node.leftChild) < 0) {
+        rotateLeft(node.leftChild);
+      }
+      return rotateRight(node);
 
-  private int getHeight(AVLNode node) {
-    if (node == null) {
-      return 0;
+    } else if (isRightHeavy(node)) {
+      if (getBalanceFactor(node.rightChild) > 0) {
+        rotateRight(node.rightChild);
+      }
+      return rotateLeft(node);
     }
-    return node.height;
+    return node;
+  }
+
+  private AVLNode rotateLeft(AVLNode node) {
+    var newRoot = node.rightChild;
+    node.rightChild = newRoot.leftChild;
+    newRoot.leftChild = node;
+
+    setHeight(node);
+    setHeight(newRoot);
+    return newRoot;
+  }
+
+  private AVLNode rotateRight(AVLNode node) {
+    var newRoot = node.leftChild;
+    node.leftChild = newRoot.rightChild;
+    newRoot.rightChild = node;
+
+    setHeight(node);
+    setHeight(newRoot);
+
+    return newRoot;
+  }
+
+  private boolean isLeftHeavy(AVLNode node) {
+    return getBalanceFactor(node) > 1;
+  }
+
+  private boolean isRightHeavy(AVLNode node) {
+    return getBalanceFactor(node) < -1;
+  }
+
+  private int getBalanceFactor(AVLNode node) {
+    return node == null ? 0 : getHeight(node.leftChild) - getHeight(node.rightChild);
   }
 }
