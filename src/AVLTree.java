@@ -21,18 +21,35 @@ public class AVLTree {
     root = insert(root, value);
   }
 
+  public void inOrderTraversal() {
+    inOrderWalk(root);
+  }
+
+  public int peek() {
+    return root == null ? null : root.value;
+  }
+
+  private void inOrderWalk(AVLNode node) {
+    if (node == null) {
+      return;
+    }
+    inOrderWalk(node.leftChild);
+    System.out.println(node.value);
+    inOrderWalk(node.rightChild);
+  }
+
   private AVLNode insert(AVLNode node, int value) {
     if (node == null) {
       return new AVLNode(value);
     }
 
     if (value < node.value) {
-      insert(node.leftChild, value);
+      node.leftChild = insert(node.leftChild, value);
     } else {
-      insert(node.rightChild, value);
+      node.rightChild = insert(node.rightChild, value);
     }
     setHeight(node);
-    return node;
+    return balance(node);
   }
 
   private void setHeight(AVLNode node) {
