@@ -5,7 +5,7 @@ public class AVLTree {
     private AVLNode leftChild;
     private AVLNode rightChild;
 
-    public AVLNode(int value) {
+    private AVLNode(int value) {
       this.value = value;
     }
 
@@ -63,13 +63,12 @@ public class AVLTree {
   private AVLNode balance(AVLNode node) {
     if (isLeftHeavy(node)) {
       if (getBalanceFactor(node.leftChild) < 0) {
-        rotateLeft(node.leftChild);
+        node.leftChild = rotateLeft(node.leftChild);
       }
       return rotateRight(node);
-
     } else if (isRightHeavy(node)) {
       if (getBalanceFactor(node.rightChild) > 0) {
-        rotateRight(node.rightChild);
+        node.rightChild = rotateRight(node.rightChild);
       }
       return rotateLeft(node);
     }
@@ -80,7 +79,6 @@ public class AVLTree {
     var newRoot = node.rightChild;
     node.rightChild = newRoot.leftChild;
     newRoot.leftChild = node;
-
     setHeight(node);
     setHeight(newRoot);
     return newRoot;
