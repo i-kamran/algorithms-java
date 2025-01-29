@@ -32,7 +32,30 @@ public class HeapMin {
     length++;
   }
 
-  private void growArr() {}
+  private void growArr() {
+    capacity *= 2;
+    HeapNode[] newItems = new HeapNode[capacity];
+    for (int i = 0; i < length; ++i) {
+      newItems[i] = items[i];
+    }
+    items = newItems;
+  }
 
-  private void heapifyUp(int idx) {}
+  private void heapifyUp(int idx) {
+    int parentIdx = getParentIdx(idx);
+    if (items[parentIdx].key > items[idx].key) {
+      swap(items, idx, parentIdx);
+      heapifyUp(parentIdx);
+    }
+  }
+
+  private int getParentIdx(int idx) {
+    return (idx - 1) / 2;
+  }
+
+  private void swap(HeapNode[] arr, int idxA, int idxB) {
+    HeapNode temp = items[idxA];
+    items[idxA] = items[idxB];
+    items[idxB] = temp;
+  }
 }
