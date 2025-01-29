@@ -235,6 +235,10 @@ public class Tree {
         && checkBalance(node.rightChild);
   }
 
+  public boolean isPerfect() {
+    return size() == Math.pow(2, height(root) + 1) - 1;
+  }
+
   public int getHeight() {
        return height(root);
   }
