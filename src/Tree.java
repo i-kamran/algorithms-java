@@ -220,27 +220,29 @@ public class Tree {
     return false;
   }
 
-  public boolean isBalanced(){
+  public boolean isBalanced() {
     return checkBalance(root);
   }
 
-  private boolean checkBalance(TreeNode node){
-     if (node == null){
+  private boolean checkBalance(TreeNode node) {
+    if (node == null) {
       return true;
-    } 
+    }
     var balanceFactor = height(node.leftChild) - height(node.rightChild);
 
-    return Math.abs(balanceFactor) <= 1 && checkBalance(node.leftChild) && checkBalance(node.rightChild);
+    return Math.abs(balanceFactor) <= 1
+        && checkBalance(node.leftChild)
+        && checkBalance(node.rightChild);
   }
 
   public int getHeight() {
-    if (root == null) {
-      return -1;
-    }
-    return height(root);
+       return height(root);
   }
 
   private int height(TreeNode node) {
+    if (node == null) {
+      return -1;
+    }
     if (isLeaf(node)) {
       return 0;
     }
