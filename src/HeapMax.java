@@ -104,11 +104,11 @@ public class HeapMax {
   }
 
   private boolean hasLeftChild(int idx) {
-    return getLeftChildIdx(idx) <= length;
+    return getLeftChildIdx(idx) < length;
   }
 
   private boolean hasRightChild(int idx) {
-    return getRightChildIdx(idx) <= length;
+    return getRightChildIdx(idx) < length;
   }
 
   private void swap(int[] arr, int idxA, int idxB) {
