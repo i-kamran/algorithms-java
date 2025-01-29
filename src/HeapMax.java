@@ -41,6 +41,26 @@ public class HeapMax {
     return items[0];
   }
 
+  public static boolean isMaxHeap(int[] arr) {
+    return isMaxHeap(arr, 0);
+  }
+
+  private static boolean isMaxHeap(int[] arr, int idx) {
+    var leftChildIdx = idx * 2 + 1;
+    var rightChildIdx = idx * 2 + 2;
+    if (leftChildIdx >= arr.length) {
+      return true;
+    }
+    boolean isValid;
+    if (rightChildIdx < arr.length) {
+      isValid = arr[idx] >= arr[leftChildIdx] && arr[idx] >= arr[rightChildIdx];
+      return isValid && isMaxHeap(arr, leftChildIdx) && isMaxHeap(arr, rightChildIdx);
+    } else {
+      isValid = arr[idx] >= arr[leftChildIdx];
+      return isValid && isMaxHeap(arr, leftChildIdx);
+    }
+  }
+
   private void growArr() {
     int[] newArr = new int[capacity * 2];
     for (int i = 0; i < capacity; ++i) {
