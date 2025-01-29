@@ -240,7 +240,7 @@ public class Tree {
   }
 
   public int getHeight() {
-       return height(root);
+    return height(root);
   }
 
   private int height(TreeNode node) {

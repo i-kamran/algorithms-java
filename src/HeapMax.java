@@ -83,19 +83,32 @@ public class HeapMax {
   }
 
   private void heapifyDown(int idx) {
-    var leftIdx = getLeftChildIdx(idx);
-    var rightIdx = getRightChildIdx(idx);
-    if (idx >= length || leftIdx >= length) {
-      return;
-    }
+    var largerChildIdx = largerChildIdx(idx);
 
-    if (items[idx] < items[leftIdx] && items[leftIdx] > items[rightIdx]) {
-      swap(items, idx, leftIdx);
-      heapifyDown(leftIdx);
-    } else if (items[idx] < items[rightIdx] && items[rightIdx] > items[idx]) {
-      swap(items, idx, rightIdx);
-      heapifyDown(rightIdx);
+    if (items[idx] < items[largerChildIdx]) {
+      swap(items, idx, largerChildIdx);
+      heapifyDown(largerChildIdx);
     }
+  }
+
+  private int largerChildIdx(int idx) {
+    if (!hasLeftChild(idx)) {
+      return idx;
+    }
+    if (!hasRightChild(idx)) {
+      return getLeftChildIdx(idx);
+    }
+    return items[getLeftChildIdx(idx)] > items[getRightChildIdx(idx)]
+        ? getLeftChildIdx(idx)
+        : getRightChildIdx(idx);
+  }
+
+  private boolean hasLeftChild(int idx) {
+    return getLeftChildIdx(idx) <= length;
+  }
+
+  private boolean hasRightChild(int idx) {
+    return getRightChildIdx(idx) <= length;
   }
 
   private void swap(int[] arr, int idxA, int idxB) {
