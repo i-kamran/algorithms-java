@@ -12,4 +12,8 @@ public class MinPriorityQueue {
   public boolean isEmpty() {
     return minHeap.isEmpty();
   }
+
+  public String peek() {
+    return minHeap.peek();
+  }
 }
