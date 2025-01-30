@@ -45,6 +45,37 @@ public class HeapMax {
     return isMaxHeap(arr, 0);
   }
 
+  public static void heapify(int[] arr) {
+    for (int i = arr.length / 2 - 1; i >= 0; --i) {
+      heapify(arr, i);
+    }
+  }
+
+  private static void heapify(int[] arr, int idx) {
+    int leftIdx = idx * 2 + 1;
+    int rightIdx = idx * 2 + 2;
+    int largerIdx = idx;
+
+    if (leftIdx < arr.length && arr[largerIdx] < arr[leftIdx]) {
+      largerIdx = leftIdx;
+    }
+    if (rightIdx < arr.length && arr[largerIdx] < arr[rightIdx]) {
+      largerIdx = rightIdx;
+    }
+    if (largerIdx == idx) {
+      return;
+    }
+    swapStatic(arr, largerIdx, idx);
+    heapify(arr, largerIdx);
+  }
+
+  private static void swapStatic(int[] array, int first, int second) {
+    var temp = array[first];
+    array[first] = array[second];
+    array[second] = temp;
+  }
+
+
   private static boolean isMaxHeap(int[] arr, int idx) {
     var leftChildIdx = idx * 2 + 1;
     var rightChildIdx = idx * 2 + 2;
