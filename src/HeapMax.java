@@ -75,6 +75,19 @@ public class HeapMax {
     array[second] = temp;
   }
 
+  private static int getKthLargest(int[] arr, int k){
+    if (arr == null || k >= arr.length){
+      throw new IllegalStateException("K is larger than the length of the array."); 
+    }
+    HeapMax heap = new HeapMax();
+    for (int value: arr){
+      heap.insert(value);
+    }
+    for (int i = 0; i < k; ++i){
+      heap.remove();
+    }
+    return heap.peek();
+  }
 
   private static boolean isMaxHeap(int[] arr, int idx) {
     var leftChildIdx = idx * 2 + 1;
