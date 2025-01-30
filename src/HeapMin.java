@@ -50,6 +50,13 @@ public class HeapMin {
     return length == 0;
   }
 
+  public String peek() {
+    if (length == 0) {
+      throw new IllegalStateException("Heap is empty");
+    }
+    return items[0].value;
+  }
+
   private void growArr() {
     capacity *= 2;
     HeapNode[] newItems = new HeapNode[capacity];
@@ -60,6 +67,10 @@ public class HeapMin {
   }
 
   private void heapifyUp(int idx) {
+    if (idx == 0) {
+      return;
+    }
+
     int parentIdx = getParentIdx(idx);
     if (items[parentIdx].key > items[idx].key) {
       swap(items, idx, parentIdx);
@@ -69,7 +80,7 @@ public class HeapMin {
 
   private void heapifyDown() {
     int idx = 0;
-    while (idx < length) {
+    while (getLeftChildIdx(idx) < length) {
       int smallerChildIdx = getSmallerChildIdx(idx);
       if (items[idx].key <= items[smallerChildIdx].key) {
         break;
@@ -107,8 +118,8 @@ public class HeapMin {
   }
 
   private void swap(HeapNode[] arr, int idxA, int idxB) {
-    HeapNode temp = items[idxA];
-    items[idxA] = items[idxB];
-    items[idxB] = temp;
+    HeapNode temp = arr[idxA];
+    arr[idxA] = arr[idxB];
+    arr[idxB] = temp;
   }
 }
