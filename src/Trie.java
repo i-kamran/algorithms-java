@@ -43,4 +43,18 @@ public class Trie {
     }
     current.isEndOfWord = true;
   }
+
+  public boolean contains(String word) {
+    if (word == null){
+      return false;
+    }
+    TrieNode curr = root;
+    for (char ch : word.toCharArray()) {
+      if (!curr.hasChild(ch)) {
+        return false;
+      }
+      curr = curr.getChild(ch);
+    }
+    return curr.isEndOfWord;
+  }
 }
