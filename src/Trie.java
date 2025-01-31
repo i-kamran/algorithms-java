@@ -29,6 +29,10 @@ public class Trie {
     private TrieNode getChild(char ch) {
       return children.get(ch);
     }
+
+    private TrieNode[] getChildren() {
+      return children.values().toArray(new TrieNode[0]);
+    }
   }
 
   TrieNode root = new TrieNode(' ');
@@ -45,7 +49,7 @@ public class Trie {
   }
 
   public boolean contains(String word) {
-    if (word == null){
+    if (word == null) {
       return false;
     }
     TrieNode curr = root;
@@ -56,5 +60,16 @@ public class Trie {
       curr = curr.getChild(ch);
     }
     return curr.isEndOfWord;
+  }
+
+  public void traverse() {
+    traverseWalk(root);
+  }
+
+  private void traverseWalk(TrieNode node) {
+    System.out.println(node.value);
+    for (var child : root.getChildren()) {
+      traverseWalk(child);
+    }
   }
 }
