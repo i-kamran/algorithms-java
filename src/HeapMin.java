@@ -50,6 +50,10 @@ public class HeapMin {
     return length == 0;
   }
 
+  public int size(){
+    return length;
+  }
+
   public String peek() {
     if (length == 0) {
       throw new IllegalStateException("Heap is empty");
