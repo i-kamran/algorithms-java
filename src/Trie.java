@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Trie {
   public static int ALPHABET_SIZE = 26;
@@ -95,6 +97,33 @@ public class Trie {
 
   public void traverse() {
     traverseWalk(root);
+  }
+
+  public List<String> autoComplete(String prefix) {
+    if (prefix == null) {
+      return null;
+    }
+    var lastNode = findLastNode(prefix);
+    if (lastNode == null) {
+      return null;
+    }
+    return autoCompleteWalk(prefix, root, new ArrayList<>());
+  }
+
+  private List<String> autoCompleteWalk(String prefix, TrieNode node, List<String> words) {
+    return words;
+  }
+
+  private TrieNode findLastNode(String prefix) {
+    var curr = root;
+    for (char ch : prefix.toCharArray()) {
+      var child = curr.getChild(ch);
+      if (child == null) {
+        return null;
+      }
+      curr = child;
+    }
+    return curr;
   }
 
   private void traverseWalk(TrieNode node) {
