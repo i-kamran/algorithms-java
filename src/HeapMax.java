@@ -41,70 +41,6 @@ public class HeapMax {
     return items[0];
   }
 
-  public static boolean isMaxHeap(int[] arr) {
-    return isMaxHeap(arr, 0);
-  }
-
-  public static void heapify(int[] arr) {
-    for (int i = arr.length / 2 - 1; i >= 0; --i) {
-      heapify(arr, i);
-    }
-  }
-
-  private static void heapify(int[] arr, int idx) {
-    int leftIdx = idx * 2 + 1;
-    int rightIdx = idx * 2 + 2;
-    int largerIdx = idx;
-
-    if (leftIdx < arr.length && arr[largerIdx] < arr[leftIdx]) {
-      largerIdx = leftIdx;
-    }
-    if (rightIdx < arr.length && arr[largerIdx] < arr[rightIdx]) {
-      largerIdx = rightIdx;
-    }
-    if (largerIdx == idx) {
-      return;
-    }
-    swapStatic(arr, largerIdx, idx);
-    heapify(arr, largerIdx);
-  }
-
-  private static void swapStatic(int[] array, int first, int second) {
-    var temp = array[first];
-    array[first] = array[second];
-    array[second] = temp;
-  }
-
-  private static int getKthLargest(int[] arr, int k){
-    if (arr == null || k >= arr.length){
-      throw new IllegalStateException("K is larger than the length of the array."); 
-    }
-    HeapMax heap = new HeapMax();
-    for (int value: arr){
-      heap.insert(value);
-    }
-    for (int i = 0; i < k; ++i){
-      heap.remove();
-    }
-    return heap.peek();
-  }
-
-  private static boolean isMaxHeap(int[] arr, int idx) {
-    var leftChildIdx = idx * 2 + 1;
-    var rightChildIdx = idx * 2 + 2;
-    if (leftChildIdx >= arr.length) {
-      return true;
-    }
-    boolean isValid;
-    if (rightChildIdx < arr.length) {
-      isValid = arr[idx] >= arr[leftChildIdx] && arr[idx] >= arr[rightChildIdx];
-      return isValid && isMaxHeap(arr, leftChildIdx) && isMaxHeap(arr, rightChildIdx);
-    } else {
-      isValid = arr[idx] >= arr[leftChildIdx];
-      return isValid && isMaxHeap(arr, leftChildIdx);
-    }
-  }
-
   private void growArr() {
     int[] newArr = new int[capacity * 2];
     for (int i = 0; i < capacity; ++i) {
@@ -176,5 +112,70 @@ public class HeapMax {
   @Override
   public String toString() {
     return Arrays.toString(items);
+  }
+
+
+  public static boolean isMaxHeap(int[] arr) {
+    return isMaxHeap(arr, 0);
+  }
+
+  private static boolean isMaxHeap(int[] arr, int idx) {
+    var leftChildIdx = idx * 2 + 1;
+    var rightChildIdx = idx * 2 + 2;
+    if (leftChildIdx >= arr.length) {
+      return true;
+    }
+    boolean isValid;
+    if (rightChildIdx < arr.length) {
+      isValid = arr[idx] >= arr[leftChildIdx] && arr[idx] >= arr[rightChildIdx];
+      return isValid && isMaxHeap(arr, leftChildIdx) && isMaxHeap(arr, rightChildIdx);
+    } else {
+      isValid = arr[idx] >= arr[leftChildIdx];
+      return isValid && isMaxHeap(arr, leftChildIdx);
+    }
+  }
+
+  public static void heapify(int[] arr) {
+    for (int i = arr.length / 2 - 1; i >= 0; --i) {
+      heapify(arr, i);
+    }
+  }
+
+  private static void heapify(int[] arr, int idx) {
+    int leftIdx = idx * 2 + 1;
+    int rightIdx = idx * 2 + 2;
+    int largerIdx = idx;
+
+    if (leftIdx < arr.length && arr[largerIdx] < arr[leftIdx]) {
+      largerIdx = leftIdx;
+    }
+    if (rightIdx < arr.length && arr[largerIdx] < arr[rightIdx]) {
+      largerIdx = rightIdx;
+    }
+    if (largerIdx == idx) {
+      return;
+    }
+    swapStatic(arr, largerIdx, idx);
+    heapify(arr, largerIdx);
+  }
+
+  private static void swapStatic(int[] array, int first, int second) {
+    var temp = array[first];
+    array[first] = array[second];
+    array[second] = temp;
+  }
+
+  private static int getKthLargest(int[] arr, int k) {
+    if (arr == null || k >= arr.length) {
+      throw new IllegalStateException("K is larger than the length of the array.");
+    }
+    HeapMin heap = new HeapMin();
+    for (int value : arr) {
+      heap.insert(value, " ");
+      if (heap.size() > k) {
+        heap.remove();
+      }
+    }
+    return heap.peekKey();
   }
 }
