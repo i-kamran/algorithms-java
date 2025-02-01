@@ -107,11 +107,21 @@ public class Trie {
     if (lastNode == null) {
       return null;
     }
-    return autoCompleteWalk(prefix, root, new ArrayList<>());
+    List<String> words = new ArrayList<>();
+    autoCompleteWalk(prefix, root, words);
+    return words;
   }
 
-  private List<String> autoCompleteWalk(String prefix, TrieNode node, List<String> words) {
-    return words;
+  private void autoCompleteWalk(String prefix, TrieNode node, List<String> words) {
+    if (node == null) {
+      return;
+    }
+    if (node.isEndOfWord) {
+      words.add(prefix);
+    }
+    for (var child : root.getChildren()) {
+      autoCompleteWalk(prefix + child.value, node, words);
+    }
   }
 
   private TrieNode findLastNode(String prefix) {
