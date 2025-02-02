@@ -99,17 +99,32 @@ public class Trie {
     traverseWalk(root);
   }
 
+  private void traverseWalk(TrieNode node) {
+    System.out.println(node.value);
+    for (var child : root.getChildren()) {
+      traverseWalk(child);
+    }
+  }
+
   public List<String> autoComplete(String prefix) {
-    if (prefix == null) {
-      return null;
-    }
-    var lastNode = findLastNode(prefix);
-    if (lastNode == null) {
-      return null;
-    }
+    var lastNode = getLastNode(root, prefix);
     List<String> words = new ArrayList<>();
-    autoCompleteWalk(prefix, root, words);
+    autoCompleteWalk(prefix, lastNode, words);
     return words;
+  }
+
+  private TrieNode getLastNode(TrieNode node, String prefix) {
+    if (node == null) {
+      return null;
+    }
+    for (char ch : prefix.toCharArray()) {
+      var child = node.getChild(ch);
+      if (child == null) {
+        return null;
+      }
+      node = child;
+    }
+    return node;
   }
 
   private void autoCompleteWalk(String prefix, TrieNode node, List<String> words) {
@@ -119,27 +134,8 @@ public class Trie {
     if (node.isEndOfWord) {
       words.add(prefix);
     }
-    for (var child : root.getChildren()) {
-      autoCompleteWalk(prefix + child.value, node, words);
-    }
-  }
-
-  private TrieNode findLastNode(String prefix) {
-    var curr = root;
-    for (char ch : prefix.toCharArray()) {
-      var child = curr.getChild(ch);
-      if (child == null) {
-        return null;
-      }
-      curr = child;
-    }
-    return curr;
-  }
-
-  private void traverseWalk(TrieNode node) {
-    System.out.println(node.value);
-    for (var child : root.getChildren()) {
-      traverseWalk(child);
+    for (var child : node.getChildren()) {
+      autoCompleteWalk(prefix + child.value, child, words);
     }
   }
 }
