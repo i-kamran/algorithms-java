@@ -72,6 +72,25 @@ public class Trie {
     return curr.isEndOfWord;
   }
 
+  public boolean containsRecursive(String word) {
+    return containsRecursiveWalk(root, word, 0);
+  }
+
+  private boolean containsRecursiveWalk(TrieNode node, String word, int idx) {
+    if (idx == word.length()) {
+      return node.isEndOfWord;
+    }
+    if (node == null) {
+      return false;
+    }
+    var ch = word.charAt(idx);
+    var child = root.getChild(ch);
+    if (child == null) {
+      return false;
+    }
+    return containsRecursiveWalk(child, word, idx + 1);
+  }
+
   public void remove(String word) {
     if (word == null) {
       return;
