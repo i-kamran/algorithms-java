@@ -79,6 +79,27 @@ public class Trie {
     return containsRecursiveWalk(root, word, 0);
   }
 
+  public int countWords() {
+    if (root == null) {
+      return 0;
+    }
+    return countWordsWalk(root);
+  }
+
+  private int countWordsWalk(TrieNode node) {
+    if (node == null) {
+      return 0;
+    }
+    int count = 0;
+    if (node.isEndOfWord) {
+      count++;
+    }
+    for (var child : node.getChildren()) {
+      count += countWordsWalk(child);
+    }
+    return count;
+  }
+
   private boolean containsRecursiveWalk(TrieNode node, String word, int idx) {
     if (idx == word.length()) {
       return node.isEndOfWord;
@@ -93,6 +114,7 @@ public class Trie {
     }
     return containsRecursiveWalk(child, word, idx + 1);
   }
+
 
   public void remove(String word) {
     if (word == null) {
