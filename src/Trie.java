@@ -73,6 +73,9 @@ public class Trie {
   }
 
   public boolean containsRecursive(String word) {
+    if (word == null) {
+      return false;
+    }
     return containsRecursiveWalk(root, word, 0);
   }
 
@@ -84,7 +87,7 @@ public class Trie {
       return false;
     }
     var ch = word.charAt(idx);
-    var child = root.getChild(ch);
+    var child = node.getChild(ch);
     if (child == null) {
       return false;
     }
