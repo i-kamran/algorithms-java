@@ -115,6 +115,37 @@ public class Trie {
     return containsRecursiveWalk(child, word, idx + 1);
   }
 
+  public static String longestCommonPrefix(String[] words) {
+    if (words == null) {
+      return null;
+    }
+    var trie = new Trie();
+    for (var word : words) {
+      trie.insert(word);
+    }
+    var shortestWord = getShortestWord(words).length();
+    var prefix = new StringBuffer();
+    var curr = trie.root;
+    while (prefix.length() < shortestWord) {
+      var children = curr.getChildren();
+      if (children.length != 1) {
+        break;
+      }
+      curr = children[0];
+      prefix.append(curr.value);
+    }
+    return prefix.toString();
+  }
+
+  private static String getShortestWord(String[] words) {
+    var shortest = words[0];
+    for (var word : words) {
+      if (shortest.length() < word.length()) {
+        shortest = word;
+      }
+    }
+    return shortest;
+  }
 
   public void remove(String word) {
     if (word == null) {
