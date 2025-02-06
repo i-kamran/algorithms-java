@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Graph {
@@ -8,12 +10,20 @@ public class Graph {
     private GraphNode(String label) {
       this.label = label;
     }
+
+    @Override
+    public String toString() {
+      return label;
+    }
   }
 
   private Map<String, GraphNode> nodes = new HashMap<>();
+  private Map<GraphNode, List<GraphNode>> adjacencyList = new HashMap<>();
+
   public void addNode(String label) {
     var node = new GraphNode(label);
     nodes.putIfAbsent(label, node);
+    adjacencyList.putIfAbsent(node, new ArrayList<>());
   }
 
   public String removeNode(String label) {}
@@ -28,9 +38,17 @@ public class Graph {
     if (toNode == null) {
       throw new IllegalArgumentException("Not a valid to node.");
     }
+    adjacencyList.get(fromNode).add(toNode);
   }
 
   public void removeEdge(String from, String to) {}
 
-  public void print() {}
+  public void print() {
+    for (var node : adjacencyList.keySet()) {
+      var list = adjacencyList.get(node);
+      if (list != null) {
+        System.out.println(node + " is connected to " + list);
+      }
+    }
+  }
 }
