@@ -26,7 +26,18 @@ public class Graph {
     adjacencyList.putIfAbsent(node, new ArrayList<>());
   }
 
-  public String removeNode(String label) {}
+  public void removeNode(String label) {
+    var node = nodes.get(label);
+    if (node == null) {
+      return;
+    }
+
+    for (var fromNode : adjacencyList.keySet()) {
+      adjacencyList.get(fromNode).remove(node);
+    }
+    adjacencyList.remove(node);
+    nodes.remove(label);
+  }
 
   public void addEdge(String from, String to) {
     var fromNode = nodes.get(from);
