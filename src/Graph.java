@@ -52,7 +52,14 @@ public class Graph {
     adjacencyList.get(fromNode).add(toNode);
   }
 
-  public void removeEdge(String from, String to) {}
+  public void removeEdge(String from, String to) {
+    var fromNode = nodes.get(from);
+    var toNode = nodes.get(to);
+    if (fromNode == null || toNode == null){
+      return;
+    }
+    adjacencyList.get(fromNode).remove(toNode);
+  }
 
   public void print() {
     for (var node : adjacencyList.keySet()) {
