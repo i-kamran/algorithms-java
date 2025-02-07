@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Graph {
   private class GraphNode {
@@ -55,7 +57,7 @@ public class Graph {
   public void removeEdge(String from, String to) {
     var fromNode = nodes.get(from);
     var toNode = nodes.get(to);
-    if (fromNode == null || toNode == null){
+    if (fromNode == null || toNode == null) {
       return;
     }
     adjacencyList.get(fromNode).remove(toNode);
@@ -66,6 +68,25 @@ public class Graph {
       var list = adjacencyList.get(node);
       if (list != null) {
         System.out.println(node + " is connected to " + list);
+      }
+    }
+  }
+
+  public void traverseDepthFirst(String label) {
+    Set<GraphNode> seen = new HashSet<>();
+    var node = nodes.get(label);
+    if (node == null) {
+      return;
+    }
+    traverseDepthWalk(node, seen);
+  }
+
+  private void traverseDepthWalk(GraphNode node, Set<GraphNode> seen) {
+    System.out.println(node.label);
+    seen.add(node);
+    for (var toNode : adjacencyList.get(node)) {
+      if (!seen.contains(toNode)) {
+        traverseDepthWalk(toNode, seen);
       }
     }
   }
