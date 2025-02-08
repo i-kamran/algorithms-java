@@ -90,4 +90,29 @@ public class Graph {
       }
     }
   }
+
+  private void traverseDepthFirstRecursive(String label) {
+    var node = nodes.get(label);
+    if (node == null) {
+      return;
+    }
+    Set<GraphNode> seen = new HashSet<>();
+
+    StackLinkedList<GraphNode> stack = new StackLinkedList<>();
+    stack.push(node);
+    while (!stack.isEmpty()) {
+      var curr = stack.pop();
+      if (seen.contains(curr)) {
+        continue;
+      }
+      System.out.println(curr.label);
+      seen.add(curr);
+      var list = adjacencyList.get(node);
+      for (var toNode : list) {
+        if (!seen.contains(toNode)) {
+          stack.push(toNode);
+        }
+      }
+    }
+  }
 }
