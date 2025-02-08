@@ -107,10 +107,9 @@ public class Graph {
       }
       System.out.println(curr.label);
       seen.add(curr);
-      var list = adjacencyList.get(node);
-      for (var toNode : list) {
-        if (!seen.contains(toNode)) {
-          stack.push(toNode);
+      for (var neighbor : adjacencyList.get(curr)) {
+        if (!seen.contains(neighbor)) {
+          stack.push(neighbor);
         }
       }
     }
@@ -133,9 +132,9 @@ public class Graph {
     var curr = queue.dequeue();
     System.out.println(curr.label);
     visited.add(curr);
-    
-    for(var toNode: adjacencyList.get(curr)){
-      if(!visited.contains(toNode)){
+
+    for (var toNode : adjacencyList.get(curr)) {
+      if (!visited.contains(toNode)) {
         queue.enqueue(toNode);
       }
     }
