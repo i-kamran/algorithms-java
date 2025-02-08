@@ -91,7 +91,7 @@ public class Graph {
     }
   }
 
-  private void traverseDepthFirstRecursive(String label) {
+  public void traverseDepthFirstRecursive(String label) {
     var node = nodes.get(label);
     if (node == null) {
       return;
@@ -114,5 +114,31 @@ public class Graph {
         }
       }
     }
+  }
+
+  public void traversalBreadthFirst(String label) {
+    var node = nodes.get(label);
+    if (node == null) {
+      return;
+    }
+    QueueLinkedList<GraphNode> queue = new QueueLinkedList<>();
+    queue.enqueue(node);
+    traversalBreadthWalk(queue, new HashSet<GraphNode>());
+  }
+
+  private void traversalBreadthWalk(QueueLinkedList<GraphNode> queue, Set<GraphNode> visited) {
+    if (queue.isEmpty()) {
+      return;
+    }
+    var curr = queue.dequeue();
+    System.out.println(curr.label);
+    visited.add(curr);
+    
+    for(var toNode: adjacencyList.get(curr)){
+      if(!visited.contains(toNode)){
+        queue.enqueue(toNode);
+      }
+    }
+    traversalBreadthWalk(queue, visited);
   }
 }
