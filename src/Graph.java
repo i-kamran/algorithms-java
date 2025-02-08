@@ -91,7 +91,7 @@ public class Graph {
     }
   }
 
-  public void traverseDepthFirstRecursive(String label) {
+  public void traverseDepthFirstIterative(String label) {
     var node = nodes.get(label);
     if (node == null) {
       return;
