@@ -183,17 +183,24 @@ public class Graph {
   }
 
   private boolean hasCycleWalk(GraphNode node, Set<GraphNode> visiting, Set<GraphNode> visited) {
+    if (visited.contains(node)) {
+      return false;
+    }
     if (visiting.contains(node)) {
       return true;
     }
     visiting.add(node);
     boolean cycle = false;
-    System.out.println(adjacencyList.get(node));
     for (var neighbor : adjacencyList.get(node)) {
-      cycle = hasCycleWalk(neighbor, visiting, visited);
+      if (hasCycleWalk(neighbor, visiting, visited)) {
+        cycle = true;
+        return cycle;
+      }
     }
     visiting.remove(node);
-    visited.add(node);
+    if (!cycle) {
+      visited.add(node);
+    }
 
     return cycle;
   }
