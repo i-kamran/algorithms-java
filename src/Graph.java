@@ -173,4 +173,13 @@ public class Graph {
     stack.push(node);
   }
 
+  public boolean hasCycle() {
+    for (var node : nodes.values()) {
+      if (hasCycleWalk(node, new HashSet<>(), new HashSet<>())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }
