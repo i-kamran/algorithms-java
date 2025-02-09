@@ -140,4 +140,37 @@ public class Graph {
     }
     traversalBreadthWalk(queue, visited);
   }
+
+  public List<String> topologicalSort(String label) {
+    var node = nodes.get(label);
+    List<String> result = new ArrayList<String>();
+    if (node == null) {
+      return result;
+    }
+    var seen = new HashSet<GraphNode>();
+    StackLinkedList<GraphNode> stack = new StackLinkedList<>();
+    topologicalSortWalk(node, seen, stack);
+    while (!stack.isEmpty()) {
+      result.add(stack.pop().label);
+    }
+
+    return result;
+  }
+
+  private void topologicalSortWalk(
+      GraphNode node, HashSet<GraphNode> seen, StackLinkedList<GraphNode> stack) {
+    if (node == null || seen.contains(node)) {
+      return;
+    }
+    seen.add(node);
+
+    for (var neighbor : adjacencyList.get(node)) {
+      if (seen.contains(neighbor)) {
+        continue;
+      }
+      topologicalSortWalk(neighbor, seen, stack);
+    }
+    stack.push(node);
+  }
+
 }
