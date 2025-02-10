@@ -10,6 +10,11 @@ public class WeightedGraph<T> {
     private WeightedNode(E label) {
       this.label = label;
     }
+
+    @Override
+    public String toString() {
+      return label.toString();
+    }
   }
 
   private class WeightedEdge {
@@ -21,6 +26,11 @@ public class WeightedGraph<T> {
       this.from = from;
       this.to = to;
       this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+      return "To node: " + to.toString() + ", Weight: " + weight;
     }
   }
 
