@@ -43,4 +43,13 @@ public class WeightedGraph<T> {
     var edge = new WeightedEdge(fromNode, toNode, weight);
     adjList.get(fromNode).add(edge);
   }
+
+  public void print() {
+    for (var node : adjList.keySet()) {
+      System.out.println("Node: " + node.label);
+      for (var neighbor : adjList.get(node)) {
+        System.out.println("    " + neighbor);
+      }
+    }
+  }
 }
