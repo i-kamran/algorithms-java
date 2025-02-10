@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 public class WeightedGraph<T> {
-  private class WeightedNode<E> {
-    private E label;
+  private class WeightedNode {
+    private T label;
+    private List<WeightedEdge> edges = new ArrayList<>();
 
-    private WeightedNode(E label) {
+    private WeightedNode(T label) {
       this.label = label;
     }
 
@@ -15,14 +16,22 @@ public class WeightedGraph<T> {
     public String toString() {
       return label.toString();
     }
+
+    private void addEdge(WeightedNode to, int weight) {
+      edges.add(new WeightedEdge(this, to, weight));
+    }
+
+    private List<WeightedEdge> getEdges() {
+      return edges;
+    }
   }
 
   private class WeightedEdge {
-    private WeightedNode<T> from;
-    private WeightedNode<T> to;
+    private WeightedNode from;
+    private WeightedNode to;
     private int weight;
 
-    private WeightedEdge(WeightedNode<T> from, WeightedNode<T> to, int weight) {
+    private WeightedEdge(WeightedNode from, WeightedNode to, int weight) {
       this.from = from;
       this.to = to;
       this.weight = weight;
@@ -30,17 +39,14 @@ public class WeightedGraph<T> {
 
     @Override
     public String toString() {
-      return "To node: " + to.toString() + ", Weight: " + weight;
+      return from.toString() + " -> " + to.toString() + ", Weight: " + weight;
     }
   }
 
-  Map<T, WeightedNode<T>> nodes = new HashMap<>();
-  Map<WeightedNode<T>, List<WeightedEdge>> adjList = new HashMap<>();
+  Map<T, WeightedNode> nodes = new HashMap<>();
 
   public void addNode(T label) {
-    WeightedNode<T> node = new WeightedNode<T>(label);
-    nodes.putIfAbsent(label, node);
-    adjList.putIfAbsent(node, new ArrayList<>());
+    nodes.putIfAbsent(label, new WeightedNode(label));
   }
 
   public void addEdge(T from, T to, int weight) {
@@ -50,14 +56,14 @@ public class WeightedGraph<T> {
     if (fromNode == null || toNode == null) {
       throw new IllegalArgumentException("Both nodes must exist.");
     }
-    var edge = new WeightedEdge(fromNode, toNode, weight);
-    adjList.get(fromNode).add(edge);
+    fromNode.addEdge(toNode, weight);
+    toNode.addEdge(fromNode, weight);
   }
 
   public void print() {
-    for (var node : adjList.keySet()) {
+    for (var node : nodes.values()) {
       System.out.println("Node: " + node.label);
-      for (var neighbor : adjList.get(node)) {
+      for (var neighbor : node.getEdges()) {
         System.out.println("    " + neighbor);
       }
     }
