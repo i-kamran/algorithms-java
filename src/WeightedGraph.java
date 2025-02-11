@@ -1,7 +1,11 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Set;
 
 public class WeightedGraph<T> {
   private class WeightedNode {
@@ -58,6 +62,56 @@ public class WeightedGraph<T> {
     }
     fromNode.addEdge(toNode, weight);
     toNode.addEdge(fromNode, weight);
+  }
+
+  private class NodeEntry {
+    private WeightedNode node;
+    private int priority;
+
+    private NodeEntry(WeightedNode node, int priority) {
+      this.node = node;
+      this.priority = priority;
+    }
+  }
+
+  public int getShortestPath(String from, String to) {
+    var fromNode = nodes.get(from);
+    var toNode = nodes.get(to);
+    if (fromNode == null || toNode == null) {
+      throw new IllegalArgumentException("Both nodes must exist.");
+    }
+
+    Map<WeightedNode, Integer> distances = new HashMap<>();
+    Map<WeightedNode, WeightedNode> previousNodes = new HashMap<>();
+    Set<WeightedNode> visited = new HashSet<>();
+    PriorityQueue<NodeEntry> queue =
+        new PriorityQueue<>(Comparator.comparingInt(ne -> ne.priority));
+
+    for (var node : nodes.values()) {
+      distances.put(node, Integer.MAX_VALUE);
+    }
+
+    distances.replace(fromNode, 0);
+
+    queue.add(new NodeEntry(fromNode, 0));
+
+    while (!queue.isEmpty()) {
+      var curr = queue.remove().node;
+
+      visited.add(curr);
+
+      for (var edge : curr.getEdges()) {
+        if (visited.contains(edge.to)) {
+          continue;
+        }
+        var newDistance = distances.get(curr) + edge.weight;
+        if (newDistance < distances.get(edge.to)) {
+          distances.replace(edge.to, newDistance);
+          queue.add(new NodeEntry(edge.to, newDistance));
+        }
+      }
+    }
+    return distances.get(toNode);
   }
 
   public void print() {
