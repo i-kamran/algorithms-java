@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.Stack;
 
 public class WeightedGraph<T> {
   private class WeightedNode {
@@ -74,7 +75,7 @@ public class WeightedGraph<T> {
     }
   }
 
-  public int getShortestPath(String from, String to) {
+  public Path getShortestPath(String from, String to) {
     var fromNode = nodes.get(from);
     var toNode = nodes.get(to);
     if (fromNode == null || toNode == null) {
@@ -107,11 +108,29 @@ public class WeightedGraph<T> {
         var newDistance = distances.get(curr) + edge.weight;
         if (newDistance < distances.get(edge.to)) {
           distances.replace(edge.to, newDistance);
+          previousNodes.replace(edge.to, curr);
           queue.add(new NodeEntry(edge.to, newDistance));
         }
       }
     }
-    return distances.get(toNode);
+    return buildPath(previousNodes, toNode);
+  }
+
+  private Path buildPath(
+      Map<WeightedNode, WeightedNode> previousNodes, WeightedNode toNode) {
+    Stack<WeightedNode> stack = new Stack<>();
+    stack.push(toNode);
+    var previous = previousNodes.get(toNode);
+    while (previous != null) {
+      stack.push(previous);
+      previous = previousNodes.get(previous);
+    }
+
+    Path path = new Path();
+    while (!stack.isEmpty()) {
+      path.add(stack.pop().toString());
+    }
+    return path;
   }
 
   public void print() {
