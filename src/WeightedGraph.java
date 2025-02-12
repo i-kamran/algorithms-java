@@ -108,7 +108,7 @@ public class WeightedGraph<T> {
         var newDistance = distances.get(curr) + edge.weight;
         if (newDistance < distances.get(edge.to)) {
           distances.replace(edge.to, newDistance);
-          previousNodes.replace(edge.to, curr);
+          previousNodes.put(edge.to, curr);
           queue.add(new NodeEntry(edge.to, newDistance));
         }
       }
@@ -116,8 +116,7 @@ public class WeightedGraph<T> {
     return buildPath(previousNodes, toNode);
   }
 
-  private Path buildPath(
-      Map<WeightedNode, WeightedNode> previousNodes, WeightedNode toNode) {
+  private Path buildPath(Map<WeightedNode, WeightedNode> previousNodes, WeightedNode toNode) {
     Stack<WeightedNode> stack = new Stack<>();
     stack.push(toNode);
     var previous = previousNodes.get(toNode);
@@ -125,7 +124,6 @@ public class WeightedGraph<T> {
       stack.push(previous);
       previous = previousNodes.get(previous);
     }
-
     Path path = new Path();
     while (!stack.isEmpty()) {
       path.add(stack.pop().toString());
