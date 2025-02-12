@@ -131,6 +131,32 @@ public class WeightedGraph<T> {
     return path;
   }
 
+  public boolean hasCycle() {
+    Set<WeightedNode> visited = new HashSet<>();
+    for (var curr : nodes.values()) {
+      if (!visited.contains(curr) && hasCycleWalk(curr, null, visited)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean hasCycleWalk(WeightedNode curr, WeightedNode parent, Set<WeightedNode> visited) {
+    if (visited.contains(curr)) {
+      return false;
+    }
+    visited.add(curr);
+    for (var edge : curr.getEdges()) {
+      if (edge.to == parent) {
+        continue;
+      }
+      if (visited.contains(edge.to) || hasCycleWalk(edge.to, curr, visited)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public void print() {
     for (var node : nodes.values()) {
       System.out.println("Node: " + node.label);
