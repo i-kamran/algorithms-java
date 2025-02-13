@@ -157,6 +157,38 @@ public class WeightedGraph<T> {
     return false;
   }
 
+  public WeightedGraph<T> getMinimumSpanningTree() {
+    WeightedGraph<T> tree = new WeightedGraph<>();
+    if (nodes.isEmpty()) {
+      return tree;
+    }
+    PriorityQueue<WeightedEdge> edges = new PriorityQueue<>(Comparator.comparingInt(e -> e.weight));
+
+    var startNode = nodes.values().iterator().next();
+    edges.addAll(startNode.getEdges());
+
+    tree.addNode(startNode.label);
+    while (tree.nodes.size() < nodes.size()) {
+      WeightedEdge minEdge = edges.remove();
+      if (tree.containsNode(minEdge.to.label)) {
+        continue;
+      }
+      tree.addNode(minEdge.to.label);
+      tree.addEdge(minEdge.from.label, minEdge.to.label, minEdge.weight);
+
+      for (var edge : minEdge.to.getEdges()) {
+        if (!tree.containsNode(edge.to.label)) {
+          edges.add(edge);
+        }
+      }
+    }
+    return tree;
+  }
+
+  public boolean containsNode(T label) {
+    return nodes.containsKey(label);
+  }
+
   public void print() {
     for (var node : nodes.values()) {
       System.out.println("Node: " + node.label);
