@@ -42,4 +42,18 @@ public class MergeSort {
       arr[pointer++] = rightArr[rightPointer++];
     }
   }
+
+  private void copyArray(int[] arr, int[] newArr, int startIdx) {
+    for (int i = 0; i < newArr.length; ++i) {
+      newArr[i] = arr[startIdx++];
+    }
+  }
+
+  public static void main(String args[]) {
+    int[] arr = {5, 7, 4, 2, 6, 3, 1, 7, 4};
+    System.out.println(Arrays.toString(arr));
+    MergeSort sorter = new MergeSort();
+    sorter.sort(arr);
+    System.out.println(Arrays.toString(arr));
+  }
 }
