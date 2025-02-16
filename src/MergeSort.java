@@ -16,37 +16,27 @@ public class MergeSort {
   }
 
   private void merge(int[] arr, int left, int mid, int right) {
-    int leftSize = mid - left + 1;
-    int rightSize = right - mid;
-    int[] leftArr = new int[leftSize];
-    int[] rightArr = new int[rightSize];
-    copyArray(arr, leftArr, left);
-    copyArray(arr, rightArr, mid + 1);
+    int size = right - left + 1;
+    int[] newArr = new int[size];
+    int leftIdx = left;
+    int rightIdx = mid + 1;
+    int pointer = 0;
 
-    int leftPointer = 0;
-    int rightPointer = 0;
-    int pointer = left;
-
-    while (leftPointer < leftSize && rightPointer < rightSize) {
-      if (leftArr[leftPointer] < rightArr[rightPointer]) {
-        arr[pointer++] = leftArr[leftPointer++];
+    while (leftIdx <= mid && rightIdx <= right) {
+      if (arr[leftIdx] < arr[rightIdx]) {
+        newArr[pointer++] = arr[leftIdx++];
       } else {
-        arr[pointer++] = rightArr[rightPointer++];
+        newArr[pointer++] = arr[rightIdx++];
       }
     }
+    while (leftIdx <= mid) {
+      newArr[pointer++] = arr[leftIdx++];
+    }
+    while (rightIdx <= right) {
+      newArr[pointer++] = arr[rightIdx++];
+    }
 
-    while (leftPointer < leftSize) {
-      arr[pointer++] = leftArr[leftPointer++];
-    }
-    while (rightPointer < rightSize) {
-      arr[pointer++] = rightArr[rightPointer++];
-    }
-  }
-
-  private void copyArray(int[] arr, int[] newArr, int startIdx) {
-    for (int i = 0; i < newArr.length; ++i) {
-      newArr[i] = arr[startIdx++];
-    }
+    System.arraycopy(newArr, 0, arr, left, newArr.length);
   }
 
   public static void main(String args[]) {
