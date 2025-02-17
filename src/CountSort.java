@@ -14,7 +14,6 @@ public class CountSort {
         return;
       }
     }
-    System.out.println(max);
     max++;
     int[] counts = new int[max];
     for (int item : arr) {
@@ -32,6 +31,26 @@ public class CountSort {
         count--;
       }
     }
+  }
+
+  public static void main(String[] args) {
+    CountSort sorter = new CountSort();
+
+    int[] arr1 = {5, 2, 3, 1};
+    sorter.sort(arr1);
+    System.out.println("Sorted: " + Arrays.toString(arr1)); // [1, 2, 3, 5]
+
+    int[] arr2 = {10, -2, 0, 5, 3, 8, 1};
+    sorter.sort(arr2);
+    System.out.println("Sorted: " + Arrays.toString(arr2)); // [-2, 0, 1, 3, 5, 8, 10]
+
+    int[] arr3 = {};
+    sorter.sort(arr3);
+    System.out.println("Sorted: " + Arrays.toString(arr3)); // []
+
+    int[] arr4 = {1, 2, 3, 4, 5};
+    sorter.sort(arr4);
+    System.out.println("Sorted: " + Arrays.toString(arr4)); // [1, 2, 3, 4, 5]
   }
 }
 
