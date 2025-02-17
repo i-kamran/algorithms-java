@@ -5,16 +5,8 @@ public class CountSort {
     if (arr == null || arr.length < 2) {
       return;
     }
-    int max = arr[0];
-    for (int item : arr) {
-      if (max < item) {
-        max = item;
-      }
-      if (item < 0) {
-        return;
-      }
-    }
-    max++;
+    int max = getMax(arr) + 1;
+
     int[] counts = new int[max];
     for (int item : arr) {
       counts[item] += 1;
@@ -31,6 +23,19 @@ public class CountSort {
         count--;
       }
     }
+  }
+
+  private int getMax(int[] arr) {
+    int max = arr[0];
+    for (int item : arr) {
+      if (max < item) {
+        max = item;
+      }
+      if (item < 0) {
+        throw new IllegalArgumentException("Array should contain only positive numbers.");
+      }
+    }
+    return max;
   }
 
   public static void main(String[] args) {
@@ -53,4 +58,3 @@ public class CountSort {
     System.out.println("Sorted: " + Arrays.toString(arr4)); // [1, 2, 3, 4, 5]
   }
 }
-
