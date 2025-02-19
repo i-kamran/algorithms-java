@@ -46,4 +46,33 @@ public class TernarySearch {
     }
     return searchRecursiveWalk(arr, needle, mid2 + 1, right);
   }
+
+  public static void main(String[] args) {
+    TernarySearch searcher = new TernarySearch();
+    int[] arr = {1, 4, 7, 9, 11, 15};
+
+    // Test cases for both methods
+    testSearchMethods(searcher, arr, 7); // Present in array
+    testSearchMethods(searcher, arr, 5); // Not in array
+    testSearchMethods(searcher, arr, 1); // First element
+    testSearchMethods(searcher, arr, 15); // Last element
+    testSearchMethods(searcher, arr, -1); // Not in array (too low)
+    testSearchMethods(searcher, arr, 20); // Not in array (too high)
+
+    // Edge cases
+    int[] singleElementArr = {10};
+    testSearchMethods(searcher, singleElementArr, 10); // Only element in array
+    testSearchMethods(searcher, singleElementArr, 5); // Not in array
+
+    int[] emptyArr = {};
+    testSearchMethods(searcher, emptyArr, 3); // Searching in an empty array
+  }
+
+  // Helper method to test both search methods
+  private static void testSearchMethods(TernarySearch searcher, int[] arr, int target) {
+    System.out.println("Searching for " + target + "...");
+    System.out.println("Iterative search: " + searcher.search(arr, target));
+    System.out.println("Recursive search: " + searcher.searchRecursive(arr, target));
+    System.out.println("-------------------------");
+  }
 }
