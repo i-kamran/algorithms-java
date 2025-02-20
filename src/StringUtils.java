@@ -20,9 +20,21 @@ public class StringUtils {
   }
 
   public static String reverse(String str) {
+    if (str == null) {
+      return "";
+    }
     StringBuilder reversed = new StringBuilder();
     for (int i = str.length() - 1; i >= 0; --i) {
       reversed.append(str.charAt(i));
+    }
+    return reversed.toString();
+  }
+
+  public static String reverseWords(String sentence) {
+    String[] words = sentence.split(" ");
+    StringBuilder reversed = new StringBuilder();
+    for (var i = words.length - 1; i >= 0; --i) {
+      reversed.append(words[i] + " ");
     }
     return reversed.toString();
   }
