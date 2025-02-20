@@ -50,4 +50,24 @@ public class StringUtils {
     }
     return output.toString();
   }
+
+  public static char getMaxOccurring(String str) {
+    if (str == null) {
+      return ' ';
+    }
+    final int ASCII_SIZE = 256;
+    int[] frequencies = new int[ASCII_SIZE];
+    for (var ch : str.toCharArray()) {
+      frequencies[ch]++;
+    }
+    int max = frequencies[0];
+    char value = ' ';
+    for (var i = 0; i < frequencies.length; ++i) {
+      if (max < frequencies[i]) {
+        max = frequencies[i];
+        value = (char) i;
+      }
+    }
+    return value;
+  }
 }
