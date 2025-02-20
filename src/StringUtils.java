@@ -38,4 +38,16 @@ public class StringUtils {
     }
     return reversed.toString();
   }
+
+  public static String removeDuplicates(String str) {
+    StringBuilder output = new StringBuilder();
+    Set<Character> seen = new HashSet<>();
+    for (var ch : str.toCharArray()) {
+      if (!seen.contains(ch)) {
+        seen.add(ch);
+        output.append(ch);
+      }
+    }
+    return output.toString();
+  }
 }
