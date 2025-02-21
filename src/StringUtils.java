@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -69,5 +70,21 @@ public class StringUtils {
       }
     }
     return value;
+  }
+
+  public static boolean areAnagrams(String word1, String word2) {
+    if (word1 == null || word2 == null || word1.length() != word2.length()) {
+      return false;
+    }
+    var arr1 = word1.toLowerCase().toCharArray();
+    var arr2 = word2.toLowerCase().toCharArray();
+    Arrays.sort(arr1);
+    Arrays.sort(arr2);
+    for (var i = 0; i < word1.length(); ++i) {
+      if (arr1[i] != arr2[i]) {
+        return false;
+      }
+    }
+    return true;
   }
 }
