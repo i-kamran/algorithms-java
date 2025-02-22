@@ -87,4 +87,30 @@ public class StringUtils {
     }
     return true;
   }
+
+  public static boolean areAnagramsHist(String word1, String word2) {
+    if (word1 == null || word2 == null || word1.length() != word2.length()) {
+      return false;
+    }
+    final int ALPHABET_SIZE = 26;
+    int[] frequencies = new int[ALPHABET_SIZE];
+    word1 = word1.toLowerCase();
+    word2 = word2.toLowerCase();
+    for (int i = 0; i < word1.length(); ++i) {
+      frequencies[word1.charAt(i) - 'a']++;
+    }
+    for (int i = 0; i < word1.length(); ++i) {
+      int idx = frequencies[word2.charAt(i) - 'a'];
+      if (frequencies[idx] == 0) {
+        return false;
+      }
+      frequencies[idx]--;
+    }
+    for (int frequency : frequencies) {
+      if (frequency > 0) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
